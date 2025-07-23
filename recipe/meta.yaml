@@ -1,11 +1,11 @@
-{% set version = "v2.0.0" %}
+{% set version = "2.0.0" %}
 
 package:
   name: spz
   version: {{ version }}
 
 source:
-  url: https://github.com/nianticlabs/spz/archive/{{ version }}.tar.gz
+  url: https://github.com/nianticlabs/spz/archive/v{{ version }}.tar.gz
   sha256: fa14626b531c1dee2c29c29b43de8eaa8b773c3b0ef434ee8372c9712dfb6773
   patches:
     - ./patches/0001-Add-BUILD_SHARED_LIBS-option.patch
