@@ -11,7 +11,7 @@ source:
     - ./patches/0001-Add-BUILD_SHARED_LIBS-option.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage('spz', max_pin='x.x.x') }}
 
