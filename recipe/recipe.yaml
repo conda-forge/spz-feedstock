@@ -1,0 +1,51 @@
+schema_version: 1
+
+context:
+  version: 2.0.0
+
+package:
+  name: spz
+  version: ${{ version }}
+
+source:
+  url: https://github.com/nianticlabs/spz/archive/v${{ version }}.tar.gz
+  sha256: fa14626b531c1dee2c29c29b43de8eaa8b773c3b0ef434ee8372c9712dfb6773
+  patches:
+    - ./patches/0001-Add-BUILD_SHARED_LIBS-option.patch
+
+build:
+  number: 2
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib("c") }}
+    - cmake
+    - ninja
+  host:
+    - zlib
+  run_exports:
+    - ${{ pin_subpackage('spz', upper_bound='x.x.x') }}
+
+tests:
+  - script:
+      - if: unix
+        then: test -f ${PREFIX}/include/load-spz.h
+      - if: unix
+        then: test -f ${PREFIX}/lib/libspz${SHLIB_EXT}
+      - if: win
+        then: if not exist %LIBRARY_BIN%\spz.dll exit 1
+      - if: win
+        then: if not exist %LIBRARY_INC%\load-spz.h exit 1
+      - if: win
+        then: if not exist %LIBRARY_LIB%\spz.lib exit 1
+
+about:
+  license: MIT
+  license_file: LICENSE
+  summary: File format for 3D Gaussian splats.
+  homepage: https://github.com/nianticlabs/spz/
+
+extra:
+  recipe-maintainers:
+    - hobu
