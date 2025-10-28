@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 2.0.0
+  version: "2.1.0"
 
 package:
   name: spz
@@ -9,12 +9,12 @@ package:
 
 source:
   url: https://github.com/nianticlabs/spz/archive/v${{ version }}.tar.gz
-  sha256: fa14626b531c1dee2c29c29b43de8eaa8b773c3b0ef434ee8372c9712dfb6773
+  sha256: 97bf4451b76c7fc428b7c3ed426edbc71c122e6b0b43623cdfcefabe850709e4
   patches:
-    - ./patches/0001-Add-BUILD_SHARED_LIBS-option.patch
+    - ./patches/0001-hammer-CMAKE_CXX_STANDARD-to-17-for-all-targets.patch
 
 build:
-  number: 2
+  number: 0
 
 requirements:
   build:
@@ -30,16 +30,14 @@ requirements:
 tests:
   - script:
       - if: unix
-        then: test -f ${PREFIX}/include/load-spz.h
-      - if: unix
-        then: test -f ${PREFIX}/lib/libspz${SHLIB_EXT}
+        then:
+          - test -f ${PREFIX}/include/load-spz.h
+          - test -f ${PREFIX}/lib/libspz${SHLIB_EXT}
       - if: win
-        then: if not exist %LIBRARY_BIN%\spz.dll exit 1
-      - if: win
-        then: if not exist %LIBRARY_INC%\load-spz.h exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\spz.lib exit 1
-
+        then:
+          - if not exist %LIBRARY_BIN%\spz.dll exit 1
+          - if not exist %LIBRARY_INC%\load-spz.h exit 1
+          - if not exist %LIBRARY_LIB%\spz.lib exit 1
 about:
   license: MIT
   license_file: LICENSE
