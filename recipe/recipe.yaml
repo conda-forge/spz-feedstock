@@ -10,8 +10,6 @@ package:
 source:
   url: https://github.com/nianticlabs/spz/archive/v${{ version }}.tar.gz
   sha256: 266c144fddb87f428495bbe1e44748fc3f1e5bfaa9e354a5d0d0284c4f8946cc
-  patches:
-    - ./patches/0001-hammer-CMAKE_CXX_STANDARD-to-17-for-all-targets.patch
 
 build:
   number: 0
@@ -24,6 +22,7 @@ requirements:
     - ninja
   host:
     - zlib
+    - zstd
   run_exports:
     - ${{ pin_subpackage('spz', upper_bound='x.x.x') }}
 
@@ -31,7 +30,7 @@ tests:
   - script:
       - if: unix
         then:
-          - test -f ${PREFIX}/include/load-spz.h
+          - test -f ${PREFIX}/include/spz/load-spz.h
           - test -f ${PREFIX}/lib/libspz${SHLIB_EXT}
       - if: win
         then:
