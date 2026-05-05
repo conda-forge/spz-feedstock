@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "2.1.0"
+  version: "3.0.0"
 
 package:
   name: spz
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://github.com/nianticlabs/spz/archive/v${{ version }}.tar.gz
-  sha256: 97bf4451b76c7fc428b7c3ed426edbc71c122e6b0b43623cdfcefabe850709e4
+  sha256: 266c144fddb87f428495bbe1e44748fc3f1e5bfaa9e354a5d0d0284c4f8946cc
   patches:
     - ./patches/0001-hammer-CMAKE_CXX_STANDARD-to-17-for-all-targets.patch
 
